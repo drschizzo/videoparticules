@@ -80,14 +80,14 @@ const scene = new THREE.Scene()
             },
             t:{
                 type:"t",
-                //value:new THREE.TextureLoader().load('./2.jpeg')
-                value:new THREE.VideoTexture(video)
+                value:new THREE.TextureLoader().load('./1.png')
+                //value:new THREE.VideoTexture(video)
             },
             
             t2:{
                 type:"t",
-                //value:new THREE.TextureLoader().load('./2.jpeg')
-                value:new THREE.VideoTexture(video2)
+                value:new THREE.TextureLoader().load('./2.jpeg')
+                //value:new THREE.VideoTexture(video2)
             },
             tmix:{
                 value:0.
@@ -167,6 +167,7 @@ const scene = new THREE.Scene()
     // cameraFolder.add(camera.position, 'z', 0, 10)
     // cameraFolder.open()
 
+    let elapsedTime = 0
     function animate() {
         requestAnimationFrame(animate)
       //  cube.rotation.x += 0.01
