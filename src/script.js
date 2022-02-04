@@ -37,9 +37,6 @@ const scene = new THREE.Scene()
 
     
 
-    const video = document.getElementById('video1')
-    video.play()
-    const video2 = document.getElementById('video2')
     //video2.play()
     //video.srcObject =videopath
    
@@ -102,29 +99,11 @@ const scene = new THREE.Scene()
     const cube = new THREE.Mesh(geometry, shaderMaterial)
     const particules=new THREE.Points(geometry,shaderMaterial)
     scene.add(particules)
-    let currentvideo=video
     let neddupdate=false
     let transition=0
     let maxvideoduration=5
     
-    video.addEventListener('ended', function () {
-
-            neddupdate=true
-            transition=0
-           // currentvideo=video2
-           // currentvideo.currentTime=0
-           // currentvideo.play()
-
-           // shaderMaterial.uniforms.t.value=new THREE.VideoTexture(video2)
-
-       
-        
-    }, false);
-    video2.addEventListener('ended', function () {
-        neddupdate=true
-            transition=0
-
-    }, false);
+   
 
 
     // window.addEventListener('click', (e) => {
@@ -168,6 +147,7 @@ const scene = new THREE.Scene()
     // cameraFolder.open()
 
     let elapsedTime = 0
+    let currentvideo=0
     function animate() {
         requestAnimationFrame(animate)
       //  cube.rotation.x += 0.01
@@ -184,9 +164,11 @@ const scene = new THREE.Scene()
       
         render()
         shaderMaterial.uniforms.time.value += 1.0 / 60.0
-        if(currentvideo.currentTime>maxvideoduration){
+        elapsedTime+=1.0 / 60.0
+        if(elapsedTime>maxvideoduration){
             neddupdate=true
             transition=0
+            elapsedTime=0
         }
        // console.log(shaderMaterial.uniforms.time.value)
         if(neddupdate){
@@ -196,17 +178,14 @@ const scene = new THREE.Scene()
             }
             else{
                 
-            currentvideo=currentvideo==video?video2:video
-            currentvideo.currentTime=0
-          
-            neddupdate=false
-            currentvideo.play()
-
+                currentvideo=currentvideo==0?1:0
+                neddupdate=false
+            
             }
             
         }
         else if(transition>0){
-            if(currentvideo==video){
+            if(currentvideo==0){
                 shaderMaterial.uniforms.tmix.value=transition/10
             }
             else
